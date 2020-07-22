@@ -1,20 +1,18 @@
-```shell
+# IEx Sessions
+It use for archived our code to grab from iex.
+
+## Creating a module to spawn a process and listening the receive messages
+```elixir
 iex[1]> import Increasly.Boundry
 Increasly.Boundry
 iex[2]> pid = start(42)
 #PID<0.190.0>
 iex[3]> send(pid, :inc)
 :inc
-iex[4]> Pro
-Process     Protocol    
-iex[4]> Process.alive? pid
+iex[4]> Process.alive?(pid)
 true
 iex[5]> send(pid, {:state, self()})
 {:state, #PID<0.187.0>}
-iex[6]> fl
-floor/1    flush/0    
-iex[6]> flush
-flush/0    
 iex[6]> flush
 43
 :ok
@@ -25,11 +23,10 @@ iex[8]> send(pid, {:state, self()})
 iex[9]> flush                      
 44
 :ok
-iex[10]>
 ```
 
-
-```
+## Creating our generic server
+```elixir
 iex(2)> GenServer.start_link(Increasly.Server, 42)
 {:ok, #PID<0.147.0>}
 iex(3)> {:ok, counter} = v(2)
@@ -56,4 +53,18 @@ iex(11)> GenServer.cast(counter, :dec)
 :ok
 iex(12)> GenServer.call(counter, :state)
 45
+```
+
+# User a GenServer OTP module and user the Supervisor to start our children
+```elixir
+iex[1]> Process.alive?(GenServer.whereis(:server))
+true
+iex[2]> Increasly.inc
+:ok
+iex[3]> Increasly.inc
+:ok
+iex[4]> Increasly.dec
+:ok
+iex[5]> Increasly.state
+43
 ```
