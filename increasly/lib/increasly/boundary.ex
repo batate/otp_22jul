@@ -1,4 +1,4 @@
-defmodule Increasly.Boundry do
+defmodule Increasly.Boundary do
   alias Increasly.Core
 
   def start(init) do
@@ -15,8 +15,10 @@ defmodule Increasly.Boundry do
 
   def listen(count) do
     receive do
-      :inc -> Core.up(count)
-      :dec -> Core.down(count)
+      :inc ->
+        Core.up(count)
+      :dec ->
+        Core.down(count)
       {:state, from} ->
         send(from, count)
         count
