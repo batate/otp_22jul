@@ -1,23 +1,21 @@
 defmodule Increasly do
-  alias Increasly.Boundary
+  # alias Increasly.Boundary
+  alias Increasly.Server
 
-  def start(num) do
-    Boundary.start(num)
+  def start_link(num) do
+    {:ok, counter} = GenServer.start_link(Server, num, name: :server)
+    counter
   end
 
-  def inc(pid) do
-    send(pid, :inc)
+  def inc do
+    GenServer.cast(:server, :inc)
   end
 
-  def dec(pid) do
-    send(pid, :dec)
+  def dec do
+    GenServer.cast(:server, :dec)
   end
 
-  def state(pid) do
-    send(pid, {:state, self()})
-
-    receive do
-      count -> count        # code
-    end
+  def state do
+    GenServer.call(:server, :state)
   end
 end
