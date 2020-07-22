@@ -27,3 +27,33 @@ iex[9]> flush
 :ok
 iex[10]>
 ```
+
+
+```
+iex(2)> GenServer.start_link(Increasly.Server, 42)
+{:ok, #PID<0.147.0>}
+iex(3)> {:ok, counter} = v(2)
+{:ok, #PID<0.147.0>}
+iex(4)> counter
+#PID<0.147.0>
+iex(5)> GenServer.cast(counter, :inc)
+:ok
+iex(6)> GenServer.call(counter, state)
+** (CompileError) iex:6: undefined function state/0
+    (stdlib 3.13) lists.erl:1354: :lists.mapfoldl/3
+    (stdlib 3.13) lists.erl:1355: :lists.mapfoldl/3
+iex(6)> GenServer.call(counter, :state)
+43
+iex(7)> GenServer.cast(counter, :inc)
+:ok
+iex(8)> GenServer.cast(counter, :inc)
+:ok
+iex(9)> GenServer.cast(counter, :inc)
+:ok
+iex(10)> GenServer.call(counter, :state)
+46
+iex(11)> GenServer.cast(counter, :dec)
+:ok
+iex(12)> GenServer.call(counter, :state)
+45
+```
