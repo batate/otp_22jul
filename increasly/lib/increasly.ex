@@ -1,18 +1,23 @@
 defmodule Increasly do
-  @moduledoc """
-  Documentation for `Increasly`.
-  """
+  alias Increasly.Boundary
 
-  @doc """
-  Hello world.
+  def start(num) do
+    Boundary.start(num)
+  end
 
-  ## Examples
+  def inc(pid) do
+    send(pid, :inc)
+  end
 
-      iex> Increasly.hello()
-      :world
+  def dec(pid) do
+    send(pid, :dec)
+  end
 
-  """
-  def hello do
-    :world
+  def state(pid) do
+    send(pid, {:state, self()})
+
+    receive do
+      count -> count        # code
+    end
   end
 end
