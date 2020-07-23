@@ -1,5 +1,5 @@
 defmodule Overlord.Game do
-  # alias Overlord.Score
+  alias Overlord.Score
 
   defstruct [
     :answer,
@@ -20,4 +20,37 @@ defmodule Overlord.Game do
     |> Enum.take(4)
   end
 
+  def info(%__MODULE__{} = game) do
+    moves =
+      game.guesses
+      |> Enum.map(&row(game, &1))
+
+    %{moves: moves, status: status(game)}
+  end
+
+  defp row(game, guess) do
+    %{
+      guess: guess,
+      score: Score.new(game.answer, guess),
+    }
+  end
+
+  defp status(game) do
+    won(game) || lost(game) || :playing
+  end
+
+  defp won(%{answer: answer, guesses: [answer | _]} = game) do
+    :won
+  end
+
+  defp won(_game), do: nil
+
+  defp lost(game) do
+    result =
+      game.guesses
+      |> length()
+      |> Kernel.==(10)
+
+    if result, do: :lost
+  end
 end
