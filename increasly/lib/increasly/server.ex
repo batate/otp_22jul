@@ -1,8 +1,10 @@
 defmodule Increasly.Server do
   use GenServer
-
   alias Increasly.Core
 
+  def start_link(num) do
+    GenServer.start_link(__MODULE__, num, name: :server)
+  end
 
   # Callbacks
 
