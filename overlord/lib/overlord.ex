@@ -1,18 +1,11 @@
 defmodule Overlord do
-  @moduledoc """
-  Documentation for `Overlord`.
-  """
+  alias Overlord.Server
 
-  @doc """
-  Hello world.
+  def start_link(answer) do
+      GenServer.start_link(Server, answer, name: :overlord)
+  end
 
-  ## Examples
-
-      iex> Overlord.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def guess(guess) do
+    GenServer.call(:overlord, {:guess, guess})
   end
 end
