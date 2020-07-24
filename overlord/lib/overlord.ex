@@ -8,4 +8,12 @@ defmodule Overlord do
   def guess(guess, player) do
     GenServer.call(player, {:guess, guess})
   end
+
+  def boom(player) do
+    GenServer.call(player, :boom)
+  end
+
+  def add_game_player(player) do
+    DynamicSupervisor.start_child(Overlord.DynamicSupervisor, {Server, {nil, player}})
+  end
 end
