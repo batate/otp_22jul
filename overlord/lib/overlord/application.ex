@@ -8,7 +8,10 @@ defmodule Overlord.Application do
   def start(_type, _args) do
     children = [
       # Starts a worker by calling: Overlord.Worker.start_link(arg)
-      # {Overlord.Worker, arg}
+      {Overlord.Server, {nil, :herminio}},
+      {Overlord.Server, {nil, :chris}},
+      {Overlord.Server, {nil, :patrick}},
+      {Overlord.Server, {nil, :bruce}},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
