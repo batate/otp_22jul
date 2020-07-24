@@ -1,11 +1,11 @@
 defmodule Overlord do
   alias Overlord.Server
 
-  def start_link(answer) do
-      GenServer.start_link(Server, answer, name: :overlord)
+  def start_link({answer, player}) do
+      GenServer.start_link(Server, answer, name: player)
   end
 
-  def guess(guess) do
-    GenServer.call(:overlord, {:guess, guess})
+  def guess(guess, player) do
+    GenServer.call(player, {:guess, guess})
   end
 end

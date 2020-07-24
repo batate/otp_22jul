@@ -39,7 +39,7 @@ defmodule Overlord.Game do
     won(game) || lost(game) || :playing
   end
 
-  defp won(%{answer: answer, guesses: [answer | _]} = game) do
+  defp won(%{answer: answer, guesses: [answer | _]} = _game) do
     :won
   end
 
