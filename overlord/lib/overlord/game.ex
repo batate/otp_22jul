@@ -6,8 +6,8 @@ defmodule Overlord.Game do
     guesses: [],
   ]
 
-  def new(answer \\ random_answer()) do
-    %__MODULE__{answer: answer}
+  def new(answer \\ nil) do
+    %__MODULE__{answer: answer || random_answer()}
   end
 
   def guess(%__MODULE__{} = game, guess) do
