@@ -11,6 +11,11 @@ defmodule Overlord.Server do
     {:reply, Game.info(new_game), new_game}
   end
 
+  def handle_call(:boom, _from, guess) do
+    raise "boom"
+    {:reply, :boom, guess}
+  end
+
   def child_spec({answer, player}) do
     %{id: player, start: {__MODULE__, :start_link, [{answer, player}]}}
   end
